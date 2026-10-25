@@ -8,6 +8,7 @@ import {
   Code2,
   BookOpen,
   FileSpreadsheet,
+  FileText,
   Plus,
 } from 'lucide-react';
 
@@ -19,6 +20,7 @@ interface AndroidSimulatorFrameProps {
   onSelectNavTab: (tab: string) => void;
   onOpenAiAdvisor: () => void;
   onOpenCsvImport: () => void;
+  onOpenPdfImport: () => void;
   onOpenAddModal: () => void;
 }
 
@@ -30,6 +32,7 @@ export const AndroidSimulatorFrame: React.FC<AndroidSimulatorFrameProps> = ({
   onSelectNavTab,
   onOpenAiAdvisor,
   onOpenCsvImport,
+  onOpenPdfImport,
   onOpenAddModal,
 }) => {
   // Toggle between Responsive Web Full Layout (Default) and Mobile Simulator Frame
@@ -112,13 +115,23 @@ export const AndroidSimulatorFrame: React.FC<AndroidSimulatorFrameProps> = ({
           {/* Quick Actions */}
           <div className="flex items-center gap-2">
             <button
+              onClick={onOpenPdfImport}
+              className="flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs transition"
+              title="Upload & Extract Bank Statement PDF"
+            >
+              <FileText className="w-3.5 h-3.5 text-emerald-700" />
+              <span className="hidden sm:inline">Upload Bank PDF</span>
+              <span className="sm:hidden">PDF</span>
+            </button>
+
+            <button
               onClick={onOpenCsvImport}
               className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-xs transition"
               title="Import Indian Bank Statement CSV (HDFC/SBI/ICICI)"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="hidden sm:inline">Import Statement (CSV)</span>
-              <span className="sm:hidden">Import</span>
+              <span className="hidden sm:inline">CSV Import</span>
+              <span className="sm:hidden">CSV</span>
             </button>
 
             <button

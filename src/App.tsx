@@ -10,6 +10,7 @@ import { BudgetModal } from './components/BudgetModal';
 import { GoalModal } from './components/GoalModal';
 import { GoalContributionModal } from './components/GoalContributionModal';
 import { CSVImportModal } from './components/CSVImportModal';
+import { PDFImportModal } from './components/PDFImportModal';
 import { GeminiAdvisorModal } from './components/GeminiAdvisorModal';
 import { AndroidProjectExplorer } from './components/AndroidProjectExplorer';
 import { CSEProjectDocs } from './components/CSEProjectDocs';
@@ -45,6 +46,7 @@ export default function App() {
   const [goalForContribution, setGoalForContribution] = useState<Goal | null>(null);
 
   const [isCsvImportOpen, setIsCsvImportOpen] = useState<boolean>(false);
+  const [isPdfImportOpen, setIsPdfImportOpen] = useState<boolean>(false);
   const [isAiAdvisorOpen, setIsAiAdvisorOpen] = useState<boolean>(false);
 
   // Initialize Persistent Database on Startup
@@ -195,6 +197,7 @@ export default function App() {
       onSelectNavTab={(tab) => setActiveNavTab(tab)}
       onOpenAiAdvisor={() => setIsAiAdvisorOpen(true)}
       onOpenCsvImport={() => setIsCsvImportOpen(true)}
+      onOpenPdfImport={() => setIsPdfImportOpen(true)}
       onOpenAddModal={handleOpenAddTransaction}
     >
       {activeAppTab === 'simulator' && (
@@ -212,6 +215,7 @@ export default function App() {
               onClearDemoData={handleClearDemoData}
               onRestoreDemoData={handleRestoreDemoData}
               onOpenCsvImport={() => setIsCsvImportOpen(true)}
+              onOpenPdfImport={() => setIsPdfImportOpen(true)}
             />
           )}
 
@@ -222,6 +226,7 @@ export default function App() {
               onOpenEditModal={handleOpenEditTransaction}
               onDeleteTransaction={handleDeleteTransaction}
               onOpenCsvImport={() => setIsCsvImportOpen(true)}
+              onOpenPdfImport={() => setIsPdfImportOpen(true)}
             />
           )}
 
@@ -294,6 +299,14 @@ export default function App() {
       <CSVImportModal
         isOpen={isCsvImportOpen}
         onClose={() => setIsCsvImportOpen(false)}
+        existingTransactions={transactions}
+        onImportConfirmed={handleImportCSVConfirmed}
+      />
+
+      {/* Bank Statement PDF Extraction Modal */}
+      <PDFImportModal
+        isOpen={isPdfImportOpen}
+        onClose={() => setIsPdfImportOpen(false)}
         existingTransactions={transactions}
         onImportConfirmed={handleImportCSVConfirmed}
       />

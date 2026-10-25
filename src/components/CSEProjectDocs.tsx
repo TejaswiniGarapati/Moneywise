@@ -78,13 +78,14 @@ export const CSEProjectDocs: React.FC = () => {
             </span>
             <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
           </div>
-          <h4 className="font-bold text-sm text-slate-900">CSV Import &amp; Gemini AI</h4>
+          <h4 className="font-bold text-sm text-slate-900">PDF &amp; CSV Statement Extraction</h4>
           <ul className="text-slate-600 flex flex-col gap-1.5 list-disc pl-4">
-            <li>Indian bank CSV statement parser (HDFC, SBI, ICICI, etc.)</li>
-            <li>Auto column detection (Debit/Credit, Narration, Date)</li>
-            <li>Likely duplicate transaction detection</li>
-            <li>Interactive preview table with individual row selection</li>
-            <li>Gemini 2.5 AI wealth advisor with privacy consent gate</li>
+            <li>PDF bank statement extraction engine (client-side text stream parser)</li>
+            <li>Automatic spending categorization (Food, Groceries, Rent, Utilities, etc.)</li>
+            <li>In-memory PDF generation for instant demo evaluation</li>
+            <li>Auto column detection (Debit/Credit, Narration, Date, Balance)</li>
+            <li>Likely duplicate detection &amp; manual category override dropdowns</li>
+            <li>Optional Gemini AI Deep Scan for unstructured statements</li>
           </ul>
         </div>
       </div>

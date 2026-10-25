@@ -9,6 +9,7 @@ import {
   FileSpreadsheet,
   Edit2,
   Filter,
+  FileText,
 } from 'lucide-react';
 import { Transaction, TransactionType, PaymentMode, CATEGORIES } from '../types';
 import { formatINR, formatDate } from '../demoData';
@@ -19,6 +20,7 @@ interface TransactionsViewProps {
   onOpenEditModal: (tx: Transaction) => void;
   onDeleteTransaction: (id: string) => Promise<void>;
   onOpenCsvImport: () => void;
+  onOpenPdfImport: () => void;
 }
 
 export const TransactionsView: React.FC<TransactionsViewProps> = ({
@@ -27,6 +29,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   onOpenEditModal,
   onDeleteTransaction,
   onOpenCsvImport,
+  onOpenPdfImport,
 }) => {
   const [activeTab, setActiveTab] = useState<'ALL' | 'INCOME' | 'EXPENSE'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
@@ -76,13 +79,21 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={onOpenPdfImport}
+            className="flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition"
+          >
+            <FileText className="w-4 h-4 text-emerald-700" />
+            <span>Upload Bank PDF</span>
+          </button>
+
           <button
             onClick={onOpenCsvImport}
             className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3.5 py-2 rounded-xl text-xs font-semibold shadow-xs transition"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
-            <span>Import Statement</span>
+            <FileSpreadsheet className="w-4 h-4 text-slate-600" />
+            <span>CSV Statement</span>
           </button>
 
           <button

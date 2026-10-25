@@ -128,6 +128,41 @@ const nonDuplicateCheck = isLikelyDuplicate(
 );
 assert(nonDuplicateCheck.isDuplicate === false, 'Did not flag different amount as duplicate');
 
+// 7. TEST PDF BANK STATEMENT TEXT EXTRACTION & PATTERN RECOGNITION
+console.log('\n▶ Test 7: Bank Statement PDF Text Line Parsing');
+const { parseBankStatementText, calculateExtractionSummary } = await import('../services/pdfParser');
+
+const sampleRawPdfText = `
+HDFC BANK ACCOUNT STATEMENT
+Date        Narration                             Chq/Ref No.    Value Dt     Withdrawal (Dr)   Deposit (Cr)   Closing Balance
+01/10/2026  SALARY CR - ACME TECH SOLUTIONS       CMS987654      01/10/2026                     1,15,000.00    1,25,000.00
+03/10/2026  UPI/SWIGGY/BANGALORE/FOOD             UPI987123      03/10/2026   840.00                           1,24,160.00
+05/10/2026  UPI/ZEPTO/GROCERIES/ONLINE            UPI456789      05/10/2026   1,450.00                         1,22,710.00
+08/10/2026  NEFT DR - HOUSE RENT OCTOBER          NEFT54321      08/10/2026   26,000.00                        96,710.00
+12/10/2026  UPI/ACT FIBERNET/INTERNET             UPI887766      12/10/2026   1,179.00                         95,531.00
+`;
+
+const parsedPdfTx = parseBankStatementText(sampleRawPdfText, existingTx);
+assert(parsedPdfTx.length === 5, `Extracted 5 transactions from raw PDF statement text (got ${parsedPdfTx.length})`);
+
+const salaryTx = parsedPdfTx.find((t) => t.type === 'INCOME');
+assert(salaryTx !== undefined && salaryTx.amount === 115000 && salaryTx.suggestedCategory === 'SALARY', `Recognized salary deposit of ₹1,15,000 and tagged category as SALARY`);
+
+const rentTx = parsedPdfTx.find((t) => t.description.includes('HOUSE RENT'));
+assert(rentTx !== undefined && rentTx.amount === 26000 && rentTx.suggestedCategory === 'HOUSING', `Recognized rent debit of ₹26,000 and tagged category as HOUSING`);
+
+const swiggyTx = parsedPdfTx.find((t) => t.description.includes('SWIGGY'));
+assert(swiggyTx !== undefined && swiggyTx.amount === 840 && swiggyTx.suggestedCategory === 'FOOD_DINING', `Recognized SWIGGY debit and categorized as FOOD_DINING`);
+
+// 8. TEST PDF EXTRACTION SPENDING SUMMARY & CATEGORY AGGREGATION
+console.log('\n▶ Test 8: PDF Spending Categorization Aggregation');
+const summary = calculateExtractionSummary(parsedPdfTx);
+assert(summary.totalCredits === 115000, `Calculated statement total income/credits = ₹1,15,000 (got ₹${summary.totalCredits})`);
+assert(summary.totalDebits === (840 + 1450 + 26000 + 1179), `Calculated statement total expenses/debits = ₹29,469 (got ₹${summary.totalDebits})`);
+assert(summary.categoryBreakdown['FOOD_DINING'] === 840, `Aggregated category breakdown for FOOD_DINING = ₹840 (got ₹${summary.categoryBreakdown['FOOD_DINING']})`);
+assert(summary.categoryBreakdown['HOUSING'] === 26000, `Aggregated category breakdown for HOUSING = ₹26,000 (got ₹${summary.categoryBreakdown['HOUSING']})`);
+
+
 console.log('\n========================================================');
 console.log(`🏁 TEST RESULTS: ${passed} PASSED | ${failed} FAILED`);
 console.log('========================================================');
@@ -135,3 +170,4 @@ console.log('========================================================');
 if (failed > 0) {
   process.exit(1);
 }
+

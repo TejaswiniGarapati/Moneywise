@@ -13,6 +13,7 @@ import {
   ShieldAlert,
   RotateCcw,
   FileSpreadsheet,
+  FileText,
   Edit2,
   Trash2,
 } from 'lucide-react';
@@ -32,6 +33,7 @@ interface DashboardViewProps {
   onClearDemoData: () => void;
   onRestoreDemoData: () => void;
   onOpenCsvImport: () => void;
+  onOpenPdfImport: () => void;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -46,6 +48,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onClearDemoData,
   onRestoreDemoData,
   onOpenCsvImport,
+  onOpenPdfImport,
 }) => {
   // Safe math calculations
   const incomeTotal = transactions
@@ -418,11 +421,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={onOpenCsvImport}
-              className="flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition"
+              onClick={onOpenPdfImport}
+              className="flex items-center gap-1 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-3 py-1.5 rounded-xl transition"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5" />
-              <span>Import Statement</span>
+              <FileText className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Upload Bank PDF</span>
+            </button>
+
+            <button
+              onClick={onOpenCsvImport}
+              className="flex items-center gap-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 px-3 py-1.5 rounded-xl transition"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5 text-slate-600" />
+              <span>CSV</span>
             </button>
 
             <button
