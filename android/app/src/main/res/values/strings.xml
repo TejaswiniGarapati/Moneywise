@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoneyWise</string>
+    <string name="tagline">Intelligent Finance &amp; Wealth Management</string>
+    
+    <!-- Navigation Tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_budgets">Budgets</string>
+    <string name="nav_goals">Goals</string>
+    <string name="nav_reports">Reports</string>
+    
+    <!-- Balance & Finance Strings -->
+    <string name="total_balance">Total Balance</string>
+    <string name="monthly_income">Monthly Income</string>
+    <string name="monthly_expenses">Monthly Expenses</string>
+    <string name="net_savings">Net Savings</string>
+    <string name="spending_breakdown">Spending by Category</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="budget_progress">Monthly Budget Progress</string>
+    <string name="view_all">View All</string>
+    
+    <!-- Demo label -->
+    <string name="demo_banner_title">DEMONSTRATION DATA MODE</string>
+    <string name="demo_banner_desc">Showing sample CSE transactions. Stage 1 in-memory preview.</string>
+</resources>

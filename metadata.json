@@ -1,0 +1,6 @@
+{
+  "name": "MoneyWise — AI Personal Finance & Wealth Management",
+  "description": "Native Android (Kotlin, Jetpack Compose, Material 3, Room SQLite, MVVM) & Interactive Simulator for Intelligent Financial Analytics and Budgeting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
